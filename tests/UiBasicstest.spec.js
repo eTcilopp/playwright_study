@@ -10,9 +10,14 @@ test('Browser Context Declaration Playwright test', async ({browser})=>
 
 test.only('PagePlaywright test', async ({page})=> 
 {
-    await page.goto("https://ibm.com/");
+    test.setTimeout(60000); 
+    await page.goto("https://cfo-uat.api.vitruvi.cc/admin/login/?next=/admin/");
     // get title + assert
-    await page.title();
-    await expect(page).toHaveTitle("IBM - Canada");
-    
+    console.log(await page.title());
+    await expect(page).toHaveTitle("Log in | Vitruvi Admin");
+    await page.locator('input[name="username"]').fill("Alexamder.Kirikeza@vitruvisoftware.com");
+    await page.locator('input[name="password"]').fill("P@ssw0rd!");
+    await page.locator('input[type="submit"]').click();
+    console.log(await page.title());
+
 });
