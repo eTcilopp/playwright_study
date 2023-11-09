@@ -17,6 +17,7 @@ test('PagePlaywright test', async ({page})=>
     const userNameInput =  page.locator('input[name="username"]');
     const userPasswordInput =  page.locator('input[name="password"]');
     const submitButton = page.locator('input[type="submit"]');
+    const section = page.locator(".section")
 
     await page.goto("https://cfo-uat.api.vitruvi.cc/admin/login/?next=/admin/");
 
@@ -34,9 +35,20 @@ test('PagePlaywright test', async ({page})=>
     await userPasswordInput.fill("P@ssw0rd!");
     await submitButton.click();
     
-    const section = page.locator(".section")
-    console.log(await section.first().textContent());
-    console.log(await section.nth(2).textContent());
-    console.log(await page.title());
+    
+    /** 
+    Интересно, что, согласно преподавателю, Playwright будет ждать, пока не появится  section.first() 
+    (ждать разрешенные 30 или сколько там секунд).
+    Однако, не будет ждать allTextContents(), т.к. удовлетворится пустым массивом []
+    Т.е. если закомментировать эти две строки ниже, любой expect на содержание allTextContents()
+    вернет ошибку.
+    А у меня этого не происходит.
+    **/
+    // console.log(await section.first().textContent());
+    // console.log(await section.nth(2).textContent());
+
+    // Getting an array
+    const allSections = await section.allTextContents();
+    console.log(allSections);
 
 });
