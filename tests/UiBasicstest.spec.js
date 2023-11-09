@@ -52,3 +52,44 @@ test('PagePlaywright test', async ({page})=>
     console.log(allSections);
 
 });
+
+
+test.only('UI Control test', async ({page})=> 
+{
+
+    // const context = await browser.newContext();
+    // const page = await context.newPage();
+
+    const userNameInput =  page.locator('input[name="username"]');
+    const userPasswordInput =  page.locator('input[name="password"]');
+    const submitButton = page.locator('input[type="submit"]');
+    const section = page.locator(".section")
+
+    // await page.goto("https://cfo-uat.api.vitruvi.cc/admin/login/?next=/admin/");
+    await page.goto("http://10.0.0.16:8000/admin/login/?next=/admin/");
+
+    await userNameInput.fill("Alexander.Kirikeza@vitruvisoftware.com");
+    await userPasswordInput.fill("P@ssw0rd!");
+    await submitButton.click();
+    
+    await page.getByText('Custom actions').click();
+    const dropdown =   page.locator("[name='action']");
+    await dropdown.selectOption("Delete selected custom actions");
+
+    await page.locator(".action-select").first().check();
+    await page.locator('.button').click();
+    await page.locator("[class='button cancel-link']").click();
+    await page.pause();
+
+    
+
+
+    await page.locator("#content").waitFor()
+    
+    
+
+    // Getting an array
+    // const allSections = await section.allTextContents();
+    // console.log(allSections);
+
+});
