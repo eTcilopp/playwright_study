@@ -98,7 +98,7 @@ test('UI Control test', async ({page})=>
     
 });
 
-test.only('Lesson 20 test Child window', async ({browser})=> 
+test('Lesson 20 test Child window', async ({browser})=> 
 {
     // проблема состоит в том, что иногда при клике на ссылку открывается новое окно (новая вкладка)
     // чтобы работать с несколькими вкладками, нужно
@@ -128,3 +128,15 @@ test.only('Lesson 20 test Child window', async ({browser})=>
     await page.pause();
 
 })
+
+test.only('Auto recorded test', async ({ page }) => {
+    await page.goto('https://kkiri252.github.io/');
+    // await expect(page).toHaveText('Glory to Ukraine!');
+    await page.locator('#navbar').getByText('About').click();
+    await page.getByRole('link', { name: 'Skills' }).click();
+    await page.getByRole('link', { name: 'Education' }).click();
+    await page.getByRole('link', { name: 'Experience' }).click();
+    await page.getByRole('link', { name: 'Interests' }).click();
+    await page.getByRole('heading', { name: 'CIS Student at MRU' }).click();
+    await page.getByRole('link', { name: 'About' }).click();
+  });
